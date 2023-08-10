@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <a href="/crear">Añadir user</a>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>idUser</th>
+            <th>nickMc</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (arrayDatos.length > 0) { %> <% arrayDatos.forEach(whiteList =>
+          { %>
+
+          <tr>
+            <td><%= whiteList.idUser %></td>
+            <td><%= whiteList.nickMc %></td>
+          </tr>
+
+          <% }) %> <% } %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
