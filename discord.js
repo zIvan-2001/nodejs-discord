@@ -24,19 +24,20 @@ const ConnectDiscord = () => {
 
 const ListRoles = () => {
   client.on("messageCreate", async (message) => {
-    if (message.content === "oplist") {
+    if (message.content === "!All") {
       const guild = client.guilds.cache.get("1138282413450068059");
       const usersId = await User.find();
       usersId.forEach(async (user) => {
         const member = await message.guild.members.fetch(user.idUser);
         const memberTag = await guild.members.fetch(user.idUser);
+        const mcNick = user.nickMc;
 
-        if (member || memberTag) {
+        if (member && memberTag) {
           // Obtener los roles del usuario
           const roles = member.roles.cache.map((role) => role.name);
           const rolesString = roles.join(", ");
           message.channel.send(
-            `Roles de ${member.user.username}: ${rolesString} : ${memberTag.user.tag}`
+            `**UserName:** ${member.user.username}:\n**ROLES:** ${rolesString}\n **TAG:** ${memberTag.user.tag}\n **mcNick:** __${mcNick}__ `
           );
         }
       });
@@ -44,29 +45,32 @@ const ListRoles = () => {
   });
 };
 
-/* const ObtenerRol = () => {
-  client.on("messageCreate", async (message) => {
-    if (message.content === "tag") {
-      const userId = "600454190052933642"; // Reemplazar con el ID del usuario que deseas buscar
-      const guild = client.guilds.cache.get("1138282413450068059");
+const ListRolesUndefined = () => {
+  const roleId = "1139355839669473321";
+  client.on("messageCreate", (message) => {
+    if (message.content === "!kick") {
+      const role = message.guild.roles.cache.get(roleId);
 
-      if (!guild) {
-        return console.log("Servidor no encontrado");
-      }
+      if (role) {
+        const membersWithRole = role.members.map((member) => member.user.tag);
+        const listaUsuarios = membersWithRole.join("\n");
 
-      const member = await guild.members.fetch(userId);
-
-      if (member) {
-        console.log(`Tag del usuario: ${member.user.tag}`);
+        if (listaUsuarios) {
+          message.channel.send(
+            `Sin membrias "${role.name}":\n${listaUsuarios}`
+          );
+        } else {
+          message.channel.send("No hay usuarios por banear");
+        }
       } else {
-        console.log("Usuario no encontrado en el servidor");
+        message.channel.send("El rol especificado no existe.");
       }
     }
   });
-}; */
+};
 
 module.exports = {
   ConnectDiscord,
   ListRoles,
-  /*   ObtenerRol, */
+  ListRolesUndefined,
 };

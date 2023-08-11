@@ -2,7 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { ConnectDb } = require("./db.js");
 const { router } = require("./src/router/whiteList.routes.js");
-const { ConnectDiscord, ListRoles, ObtenerRol } = require("./discord.js");
+const {
+  ConnectDiscord,
+  ListRoles,
+  ListRolesUndefined,
+} = require("./discord.js");
 const app = express();
 
 // Para que nodejs pueda leer datos JSON
@@ -30,4 +34,4 @@ app.listen(3366, () => {
 //Discord
 ConnectDiscord();
 ListRoles();
-/* ObtenerRol(); */
+ListRolesUndefined();
