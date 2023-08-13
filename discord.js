@@ -24,23 +24,27 @@ const ConnectDiscord = () => {
 
 const ListRoles = () => {
   client.on("messageCreate", async (message) => {
-    if (message.content === "!all") {
-      const guild = client.guilds.cache.get("1138282413450068059");
-      const usersId = await User.find();
-      usersId.forEach(async (user) => {
-        const member = await message.guild.members.fetch(user.idUser);
-        const memberTag = await guild.members.fetch(user.idUser);
-        const mcNick = user.nickMc;
+    if (message.content === "!list") {
+      try {
+        const guild = client.guilds.cache.get("1138282413450068059");
+        const usersId = await User.find();
+        usersId.forEach(async (user) => {
+          const member = await message.guild.members.fetch(user.idUser);
+          const memberTag = await guild.members.fetch(user.idUser);
+          const mcNick = user.nickMc;
 
-        if (member && memberTag) {
-          // Obtener los roles del usuario
-          const roles = member.roles.cache.map((role) => role.name);
-          const rolesString = roles.join(", ");
-          message.channel.send(
-            `**UserName:** ${member.user.username}:\n**ROLES:** ${rolesString}\n **TAG:** ${memberTag.user.tag}\n **mcNick:** __${mcNick}__ `
-          );
-        }
-      });
+          if (member && memberTag) {
+            const roles = member.roles.cache.map((role) => role.name);
+            const rolesString = roles.join(", ");
+            message.channel.send(
+              `**UserName:** ${member.user.username}:\n**ROLES:** ${rolesString}\n **TAG:** ${memberTag.user.tag}\n **mcNick:** __${mcNick}__ `
+            );
+          }
+        });
+      } catch (error) {
+        console.error(error);
+        message.channel.send("Ocurrió un error al procesar la solicitud.");
+      }
     }
   });
 };
@@ -49,7 +53,7 @@ const BanList = () => {
   client.on("messageCreate", async (message) => {
     if (message.content.startsWith("!ban")) {
       try {
-        const userId = await User.find(); // Segundo argumento después del comando es el ID del usuario
+        const userId = await User.find();
 
         userId.forEach(async (id) => {
           const user = await client.users.fetch(id.idUser);
@@ -68,9 +72,8 @@ const BanList = () => {
 
           const roles = member.roles.cache;
           if (roles.size === 1) {
-            // El tamaño 1 incluye el rol @everyone
             message.channel.send(
-              `${user.tag} no tiene roles. \n **NickMC:** ${id.nickMc} `
+              `**No es miembro:** ${user.tag} \n **NickMC:** ${id.nickMc} `
             );
           }
         });
