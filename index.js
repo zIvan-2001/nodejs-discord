@@ -6,6 +6,8 @@ const {
   ConnectDiscord,
   ListRoles,
   ListRolesUndefined,
+  test,
+  test2,
 } = require("./discord.js");
 const app = express();
 
@@ -35,3 +37,5 @@ app.listen(3366, () => {
 ConnectDiscord();
 ListRoles();
 ListRolesUndefined();
+test();
+test2();
