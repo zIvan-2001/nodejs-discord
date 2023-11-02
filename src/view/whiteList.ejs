@@ -5,6 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    body {
+      background: #000511;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 2em;
+    }
+
+    .container a {
+      text-decoration: none;
+      background: #13b683;
+      padding: 10px 20px;
+      color: #ffff;
+      font-size: 0.9em;
+      font-weight: bold;
+      border-radius: 5px;
+      text-transform: uppercase;
+    }
+
+    table {
+      margin-top: 2em;
+      background: #fff;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    table th,
+    td {
+      padding: 20px;
+    }
+
+    thead {
+      background-color: #201630;
+      color: white;
+      text-align: center;
+    }
+
+    tr:nth-child(even) {
+      background-color: #ddd;
+    }
+  </style>
   <body>
     <div class="container">
       <a href="/crear">Añadir user</a>
@@ -12,8 +64,8 @@
       <table class="table">
         <thead>
           <tr>
-            <th>idUser</th>
-            <th>nickMc</th>
+            <th>Id - Usuario de discord</th>
+            <th>Nick Minecraft</th>
           </tr>
         </thead>
         <tbody>
